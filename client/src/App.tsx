@@ -1,13 +1,14 @@
-import Login from "./auth/Login"
 import { Routes, Route } from "react-router-dom";
-import SignUp from "./auth/Signup";
+import LayoutAuth from "./auth/LayoutAuth";
+import LoginForm from "./auth/LoginForm";
+import SignupForm from "./auth/SignupForm";
 
 function App() {
   return (
     <main>
       <Routes>
-        <Route index path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
+        <Route index path="/signup" element={<LayoutAuth><SignupForm /></LayoutAuth>} />
+        <Route path="/login" element={<LayoutAuth><LoginForm /></LayoutAuth>} />
       </Routes>
     </main>
   )
