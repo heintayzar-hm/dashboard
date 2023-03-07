@@ -1,0 +1,55 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Server for dashboard",
+  "main": "dist/server.js",
+  "scripts": {
+    "test": "npm test",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "server": "nodemon --exec ts-node src/server.ts",
+    "client": "npm start --prefix ../client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "keywords": [
+    "node",
+    "react"
+  ],
+  "author": "Hein Tay Zar",
+  "license": "MIT",
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "sourceMap": true
+  },
+  "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/express-jwt": "^7.4.2",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/validatorjs": "^3.15.0",
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^7.6.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-jwt": "^8.4.1",
+    "http-proxy-middleware": "^2.0.6",
+    "jsonwebtoken": "^9.0.0",
+    "jwt-redis": "^7.0.3",
+    "mongoose": "^7.0.0",
+    "validatorjs": "^3.22.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  }
+}
