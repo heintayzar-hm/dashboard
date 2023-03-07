@@ -52,16 +52,16 @@ export const validateLoginData = async (req: Request, res: Response, next: NextF
 export const cookieValidation = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.token;
   if(!token) {
-    return res.status(401).send('Unauthorized');
+    return res.status(401).send('Unauthorized, 1');
   }
   try {
     const decoded = await verifyToken(token);
     if(!decoded) {
-      return res.status(401).send('Unauthorized');
+      return res.status(401).send(decoded);
     }
     return next()
   } catch (error) {
-    return res.status(401).send('Unauthorized');
+    return res.status(401).send('Unauthorized, 3');
   }
 }
 

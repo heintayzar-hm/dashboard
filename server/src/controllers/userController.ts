@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import User from '../model/user';
-import { cookieOptions } from '../services/config';
+import { cookieOptions, verifyToken } from '../services/config';
 export const register = async (request :Request, response :Response) => {
     try {
         const { name, email, password } = request.body;
@@ -37,7 +37,7 @@ export const login = async (request: Request, response: Response) => {
         // set in cookie
         response.cookie('token', token, cookieOptions);
 
-        response.status(200).json({ message: 'user found', user: { name, email, _id } });
+        response.status(200).json({ message: 'user found', user: { name, email, _id }, token });
     } catch (error) {
         response.status(500).json({ message: 'user not found', error });
     }
@@ -47,4 +47,20 @@ export const login = async (request: Request, response: Response) => {
 export const logout = async (request: Request, response: Response) => {
     response.clearCookie('token');
   return response.status(200).json({ message: "Log Out"})
+}
+
+
+export const validateUser = async (request: Request, response: Response) => {
+    const token = request.cookies.token;
+    const decoded = await verifyToken(token);
+    if (!decoded) {
+        return response.status(401).send({ message: "Invalid User" });
+    }
+    const user = await User.findOne({ _id: decoded.id }).exec();
+    if (!user) {
+        return response.status(404).json({ message: 'user not found' });
+    }
+
+    const { name, email } = user;
+    return response.status(200).json({ message: "Valid User", user: { name, email }})
 }

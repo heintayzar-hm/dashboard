@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../../api/axiosConfig';
 import { LoginFormType } from '../../../auth/LoginForm';
 import { SignUpFormType } from '../../../auth/SignupForm';
-import { loginAction, logoutAction, registerAction } from '../../constant';
+import { loginAction, logoutAction, registerAction, validateUserAction } from '../../constant';
 
 type AuthError = {
     msg: string;
@@ -92,9 +92,27 @@ const logout = createAsyncThunk<AuthResponse, void, { rejectValue: AuthError }>(
     }
 });
 
+const getUser = createAsyncThunk<AuthResponse, void, { rejectValue: AuthError }>(validateUserAction, async (_, { rejectWithValue }) => {
+    try {
+        const response: any = await axios.get('/users/user/validate')
+        return {
+            message: response.data.message,
+            status: response.status,
+            user: response.data.user
+        }
+    } catch (error: any) {
+
+        return rejectWithValue({
+            msg: error.message,
+            status: 422,
+        })
+    }
+})
+
 export {
     login,
     register,
-    logout
+    logout,
+    getUser
 }
 

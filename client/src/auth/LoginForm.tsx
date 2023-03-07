@@ -58,6 +58,7 @@ const LoginForm = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-3 ">
                             <span className="font-semibold sm:py-0 py-3  sm:text-center col-span-1 sm:m-auto">Email: </span>
 
+                            <div>
                             <input
                                 id="email"
                                 required
@@ -68,6 +69,7 @@ const LoginForm = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 name="email" />
+                            </div>
 
                         </div>
                         {errors.email && touched.email ? <div className="text-red-400 font-bold">{errors.email}</div> : null}
